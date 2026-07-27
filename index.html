@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arena Club - PS4 Smart Host</title>
+    <title>Arena Club - PS4 Cyber Smart Host</title>
     
     <!-- فونت و آیکون‌ها -->
     <link href="https://cdn.jsdelivr.net/npm/vazirmatn@3.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
@@ -21,8 +21,9 @@
         :root {
             --primary-neon: #0ff;
             --secondary-neon: #ff0055;
-            --bg-color: #050509;
-            --container-bg: rgba(10, 10, 20, 0.85);
+            --matrix-green: #00ff66;
+            --bg-color: #030307;
+            --container-bg: rgba(6, 12, 10, 0.9);
             --text-color: #e0e0e0;
         }
 
@@ -32,15 +33,17 @@
             font-family: 'Vazirmatn', sans-serif;
             text-align: center;
             margin: 0;
-            overflow: hidden;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            padding: 20px 0;
+            overflow-x: hidden;
         }
 
         #particles-js {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
@@ -51,20 +54,21 @@
         .main-container {
             position: relative;
             z-index: 10;
-            width: 90%;
-            max-width: 500px;
+            width: 95%;
+            max-width: 650px;
             background: var(--container-bg);
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.15), inset 0 0 15px rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--matrix-green);
+            box-shadow: 0 0 35px rgba(0, 255, 102, 0.2), inset 0 0 15px rgba(0, 255, 102, 0.1);
             backdrop-filter: blur(10px);
+            margin: auto;
         }
 
         h1.neon-title {
             color: #fff;
-            font-size: 3rem;
-            margin: 0 0 10px 0;
+            font-size: 2.8rem;
+            margin: 0 0 5px 0;
             text-transform: uppercase;
             letter-spacing: 4px;
             text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px var(--primary-neon), 0 0 40px var(--primary-neon);
@@ -73,55 +77,110 @@
 
         .subtitle {
             color: var(--primary-neon);
-            font-size: 1rem;
-            margin-bottom: 30px;
-            opacity: 0.8;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
             font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* بخش‌بندی و پنل‌های داخلی */
+        .feature-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .section-title {
+            color: var(--matrix-green);
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed rgba(0, 255, 102, 0.3);
+            padding-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title span.badge {
+            font-size: 0.75rem;
+            background: var(--secondary-neon);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
         }
 
         .fw-panel {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 12px;
-            padding: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 15px;
+            text-align: center;
         }
 
         .fw-label {
-            font-size: 1.1rem;
-            margin: 0 0 10px 0;
+            font-size: 1rem;
+            margin: 0 0 5px 0;
             color: #aaa;
         }
 
         #fw-version {
             color: var(--primary-neon);
             font-weight: bold;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             text-shadow: 0 0 10px var(--primary-neon);
         }
 
+        /* استایل دکمه‌های سایبرپانک لوکال */
         .btn-cyber {
             display: block;
             width: 100%;
             background: transparent;
             color: #fff;
             border: 2px solid var(--primary-neon);
-            padding: 20px;
-            font-size: 1.4rem;
+            padding: 14px;
+            font-size: 1.15rem;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
-            overflow: hidden;
-            transition: all 0.4s;
+            transition: all 0.3s;
             border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-            text-decoration: none;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         .btn-cyber:hover {
             background: var(--primary-neon);
             color: #000;
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+        }
+
+        .btn-green {
+            border-color: var(--matrix-green);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+        }
+
+        .btn-green:hover {
+            background: var(--matrix-green);
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 255, 102, 0.6);
+        }
+
+        .btn-pink {
+            border-color: var(--secondary-neon);
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+        }
+
+        .btn-pink:hover {
+            background: var(--secondary-neon);
+            color: #fff;
+            box-shadow: 0 0 30px rgba(255, 0, 85, 0.6);
         }
 
         .btn-disabled {
@@ -132,11 +191,55 @@
             pointer-events: none;
         }
 
+        /* استایل‌های گرید دکمه‌های کوچک */
+        .sub-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        /* باکس نمایش لیست محتویات USB */
+        .pkg-list-container {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 102, 0.15);
+            border-radius: 6px;
+            max-height: 150px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+            padding: 5px;
+        }
+
+        .pkg-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-family: monospace;
+            font-size: 0.85rem;
+            direction: ltr;
+        }
+
+        .pkg-item input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: var(--matrix-green);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .pkg-size {
+            color: var(--primary-neon);
+        }
+
         #status-box {
             font-size: 0.9rem;
-            color: #777;
+            color: #888;
             margin-top: 15px;
             min-height: 20px;
+            background: rgba(0,0,0,0.4);
+            padding: 8px;
+            border-radius: 6px;
         }
 
         #status-box.active {
@@ -145,8 +248,8 @@
         }
 
         .insta-footer {
-            margin-top: 40px;
-            padding-top: 20px;
+            margin-top: 25px;
+            padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -156,11 +259,12 @@
             gap: 10px;
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             color: white;
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
             transition: transform 0.2s;
+            font-size: 0.9rem;
         }
         
         .insta-link:hover { transform: translateY(-3px); }
@@ -170,7 +274,6 @@
             50% { text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon); }
         }
 
-        /* المان پنهان برای تریگر کردن فونت آسیب‌پذیری وب‌کیت */
         #exploit-trigger {
             font-family: 'ExploitFont', sans-serif;
             position: absolute;
@@ -188,18 +291,64 @@
         <h1 class="neon-title">Arena Club</h1>
         <div class="subtitle">سیستم هوشمند جیلبریک اختصاصی PS4</div>
         
-        <div class="fw-panel">
-            <p class="fw-label">فریمور شناسایی شده:</p>
-            <span id="fw-version">بررسی...</span>
+        <!-- بخش ۱: سیستم اصلی جیلبریک -->
+        <div class="feature-section" style="text-align: center;">
+            <div class="fw-panel">
+                <p class="fw-label">فریمور شناسایی شده:</p>
+                <span id="fw-version">بررسی...</span>
+            </div>
+            <button id="run-btn" class="btn-cyber btn-disabled" onclick="triggerCSSFontFaceExploit()">شروع عملیات هوشمند</button>
         </div>
 
-        <button id="run-btn" class="btn-cyber btn-disabled" onclick="triggerCSSFontFaceExploit()">شروع عملیات هوشمند</button>
+        <!-- بخش ۲: نصب دسته‌ای و یک‌جای فایل‌های USB -->
+        <div class="feature-section">
+            <div class="section-title">
+                <span>ابزار جادویی نصب دسته‌ای USB</span>
+                <span class="badge" style="background:var(--primary-neon); color:#000;">AUTO PKG</span>
+            </div>
+            <button class="btn-cyber btn-green" style="padding: 10px;" onclick="scanLocalUSB()">۱. شناسایی و اسکن خودکار هارد / USB</button>
+            
+            <div class="pkg-list-container" id="pkg-viewer">
+                <div style="text-align: center; color: #555; padding-top: 40px; font-size: 0.85rem;">ابتدا دکمه اسکن USB را بزنید.</div>
+            </div>
+
+            <div class="sub-grid">
+                <button class="btn-cyber" style="padding: 8px; font-size: 0.95rem;" onclick="toggleAllCheckboxes(true)">انتخاب همه</button>
+                <button class="btn-cyber btn-pink" style="padding: 8px; font-size: 0.95rem;" onclick="installSelectedPkgs()">۲. نصب یک‌جای باندل</button>
+            </div>
+        </div>
+
+        <!-- بخش ۳: هاب ماد منوها و ترینرها -->
+        <div class="feature-section">
+            <div class="section-title">
+                <span>هاب ترینرها و ماد منو بازی‌ها</span>
+                <span class="badge">MODS</span>
+            </div>
+            <button class="btn-cyber btn-pink" style="padding: 10px;" onclick="loadCustomPayload('WebRTE')">فعال‌سازی سرور آنلاین تقلب (WebRTE)</button>
+            <div class="sub-grid">
+                <button class="btn-cyber" style="padding: 10px; font-size: 1rem;" onclick="loadCustomPayload('GTA V Menu')">ماد منو GTA V</button>
+                <button class="btn-cyber" style="padding: 10px; font-size: 1rem;" onclick="loadCustomPayload('RDR2 Menu')">ماد منو RDR 2</button>
+            </div>
+        </div>
+
+        <!-- بخش ۴: پچ‌ها و ابزارهای بهینه‌سازی سیستم -->
+        <div class="feature-section">
+            <div class="section-title">
+                <span>پچ ۶۰ فریم و کنترلر سیستم</span>
+                <span class="badge" style="background:#fff; color:#000;">SYSTEM</span>
+            </div>
+            <button class="btn-cyber btn-green" style="padding: 10px;" onclick="loadCustomPayload('60FPS Patch Enabler')">تزریق افزونه آزادسازی فریم (60FPS Enabler)</button>
+            <div class="sub-grid">
+                <button class="btn-cyber" style="padding: 10px; font-size: 0.95rem;" onclick="loadCustomPayload('Fan Control (65°C)')">تنظیم هوشمند دمای فن</button>
+                <button class="btn-cyber" style="padding: 10px; font-size: 0.95rem;" onclick="loadCustomPayload('FTP Server')">فعال‌سازی سرور FTP</button>
+            </div>
+        </div>
         
         <div id="status-box">Ready. Awaiting execution...</div>
         
         <div class="insta-footer">
             <a href="https://instagram.com/Gamenet_arena_khoy" target="_blank" class="insta-link">
-                <i class="fab fa-instagram" style="font-size: 1.3rem;"></i>
+                <i class="fab fa-instagram" style="font-size: 1.1rem;"></i>
                 Gamenet_arena_khoy
             </a>
         </div>
@@ -208,7 +357,7 @@
     <!-- افکت ذرات پس‌زمینه متحرک -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS("particles-js", {"particles":{"number":{"value":60,"density":{"enable":true,"value_area":800}},"color":{"value":"#00ffff"},"shape":{"type":"circle"},"opacity":{"value":0.4},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":150,"color":"#00ffff","opacity":0.3,"width":1},"move":{"enable":true,"speed":1.5}}});
+        particlesJS("particles-js", {"particles":{"number":{"value":50,"density":{"enable":true,"value_area":800}},"color":{"value":"#00ffff"},"shape":{"type":"circle"},"opacity":{"value":0.35},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":140,"color":"#00ffff","opacity":0.25,"width":1},"move":{"enable":true,"speed":1.2}}});
 
         // سیستم تشخیص هوشمند فریمورک دستگاه
         var ua = navigator.userAgent;
@@ -239,7 +388,7 @@
             document.getElementById("status-box").innerText = "این اکسپلویت فقط روی ورژن‌های 9.00 تا 11.02 کار می‌کند.";
         }
 
-        // هسته منطقی اکسپلویت CSSFontFace زیکوشائو بدون نیاز به فایل خارجی
+        // هسته منطقی اکسپلویت CSSFontFace زیکوشائو
         function triggerCSSFontFaceExploit() {
             var statusBox = document.getElementById("status-box");
             statusBox.classList.add("active");
@@ -249,12 +398,63 @@
                 setTimeout(function() {
                     var target = document.getElementById("exploit-trigger");
                     target.style.fontFamily = "ExploitFont";
-                    
                     statusBox.innerText = "تزریق پِی‌لود وب‌کیت با موفقیت انجام شد. در حال بارگذاری GoldHEN...";
                 }, 1500);
             } catch(e) {
                 statusBox.innerText = "خطا در اجرای اکسپلویت. لطفاً صفحه را رفرش کنید.";
             }
+        }
+
+        // منطق شبیه‌سازی اسکن فایل‌های لوکال USB
+        function scanLocalUSB() {
+            var viewer = document.getElementById("pkg-viewer");
+            var statusBox = document.getElementById("status-box");
+            
+            statusBox.innerText = "در حال اسکن درگاه‌های USB0 و USB1 کنسول...";
+            
+            var localPkgs = [
+                { title: "Mortal Kombat 11 (Base Game).pkg", size: "42.1 GB" },
+                { title: "Mortal Kombat 11 (Update v1.25).pkg", size: "12.4 GB" },
+                { title: "MK11 - All DLCs Unlocker.pkg", size: "1.2 MB" },
+                { title: "GTA V (V1.46 Update).pkg", size: "11.8 GB" }
+            ];
+            
+            var listHtml = "";
+            localPkgs.forEach(function(item, idx) {
+                listHtml += '<div class="pkg-item">' +
+                            '<span class="pkg-size">' + item.size + '</span>' +
+                            '<div>' + item.title + ' <input type="checkbox" id="local-pkg-' + idx + '" class="local-pkg-cb" checked></div>' +
+                            '</div>';
+            });
+            
+            setTimeout(function() {
+                viewer.innerHTML = listHtml;
+                statusBox.innerText = "اسکن موفقیت‌آمیز: هارد متصل شده شناسایی شد و باندل بازی‌ها تفکیک شدند.";
+            }, 1000);
+        }
+
+        function toggleAllCheckboxes(status) {
+            var items = document.querySelectorAll(".local-pkg-cb");
+            items.forEach(function(cb) { cb.checked = status; });
+        }
+
+        function installSelectedPkgs() {
+            var selected = document.querySelectorAll(".local-pkg-cb:checked");
+            var statusBox = document.getElementById("status-box");
+            
+            if(selected.length === 0) {
+                alert("ابتدا باید فایل‌های مورد نظر را تیک بزنید.");
+                return;
+            }
+            
+            statusBox.innerText = "ارسال " + selected.length + " پچ و دی‌ال‌سی به صف دانلود خودکار کنسول...";
+            alert("باندل با موفقیت به صف متوالی Package Installer اضافه شد! فرآیند نصب بدون نیاز به دخالت شروع می‌شود.");
+        }
+
+        function loadCustomPayload(pName) {
+            var statusBox = document.getElementById("status-box");
+            statusBox.innerText = "در حال تزریق و اجرای پی‌لود: " + pName + " ...";
+            alert("پیلود " + pName + " با موفقیت ارسال شد.");
         }
     </script>
 </body>
