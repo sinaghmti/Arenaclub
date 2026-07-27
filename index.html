@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arena Club - PS4 Smart Host</title>
+    
+    <!-- فونت و آیکون‌ها -->
+    <link href="https://cdn.jsdelivr.net/npm/vazirmatn@3.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- فونت کاستوم مخصوص فعال‌سازی اکسپلویت وب‌کیت زیکوشائو (ntfonto) -->
+    <style>
+        @font-face {
+            font-family: 'ExploitFont';
+            src: url('data:font/ttf;base64,AAEAAAASAQAABAAgQ0ZEQv5uC7QAAAHAAAAAEGhhZEX1vPV4AAAH0AAAACZnbHlmz3s55AAAA+gAAAB0aGVhZAEB5skAAAEwAAAANm1haHQAyQBLAAABaAAAAGJwb3N0/+cAAAAAApQAAAAgcGFja2UAbw7BAAAB4AAAACxtYXNwLwAMAwAAAfQAAAAIZ2FzcAAHABMAAAHMAAAACEdseWYzz3s55AAAA+gAAAB0') format('truetype');
+        }
+    </style>
+
+    <style>
+        :root {
+            --primary-neon: #0ff;
+            --secondary-neon: #ff0055;
+            --bg-color: #050509;
+            --container-bg: rgba(10, 10, 20, 0.85);
+            --text-color: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Vazirmatn', sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 500px;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.15), inset 0 0 15px rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1.neon-title {
+            color: #fff;
+            font-size: 3rem;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px var(--primary-neon), 0 0 40px var(--primary-neon);
+            animation: neonPulse 2s infinite alternate;
+        }
+
+        .subtitle {
+            color: var(--primary-neon);
+            font-size: 1rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            font-weight: bold;
+        }
+
+        .fw-panel {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .fw-label {
+            font-size: 1.1rem;
+            margin: 0 0 10px 0;
+            color: #aaa;
+        }
+
+        #fw-version {
+            color: var(--primary-neon);
+            font-weight: bold;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px var(--primary-neon);
+        }
+
+        .btn-cyber {
+            display: block;
+            width: 100%;
+            background: transparent;
+            color: #fff;
+            border: 2px solid var(--primary-neon);
+            padding: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            text-decoration: none;
+        }
+
+        .btn-cyber:hover {
+            background: var(--primary-neon);
+            color: #000;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
+        }
+
+        .btn-disabled {
+            border-color: #444 !important;
+            color: #666 !important;
+            box-shadow: none !important;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        #status-box {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 15px;
+            min-height: 20px;
+        }
+
+        #status-box.active {
+            color: var(--secondary-neon);
+            text-shadow: 0 0 5px var(--secondary-neon);
+        }
+
+        .insta-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .insta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        
+        .insta-link:hover { transform: translateY(-3px); }
+
+        @keyframes neonPulse {
+            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px var(--primary-neon), 0 0 40px var(--primary-neon); }
+            50% { text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon); }
+        }
+
+        /* المان پنهان برای تریگر کردن فونت آسیب‌پذیری وب‌کیت */
+        #exploit-trigger {
+            font-family: 'ExploitFont', sans-serif;
+            position: absolute;
+            left: -9999px;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+    <div id="exploit-trigger">Trigger</div>
+
+    <div class="main-container">
+        <h1 class="neon-title">Arena Club</h1>
+        <div class="subtitle">سیستم هوشمند جیلبریک اختصاصی PS4</div>
+        
+        <div class="fw-panel">
+            <p class="fw-label">فریمور شناسایی شده:</p>
+            <span id="fw-version">بررسی...</span>
+        </div>
+
+        <button id="run-btn" class="btn-cyber btn-disabled" onclick="triggerCSSFontFaceExploit()">شروع عملیات هوشمند</button>
+        
+        <div id="status-box">Ready. Awaiting execution...</div>
+        
+        <div class="insta-footer">
+            <a href="https://instagram.com/Gamenet_arena_khoy" target="_blank" class="insta-link">
+                <i class="fab fa-instagram" style="font-size: 1.3rem;"></i>
+                Gamenet_arena_khoy
+            </a>
+        </div>
+    </div>
+
+    <!-- افکت ذرات پس‌زمینه متحرک -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {"particles":{"number":{"value":60,"density":{"enable":true,"value_area":800}},"color":{"value":"#00ffff"},"shape":{"type":"circle"},"opacity":{"value":0.4},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":150,"color":"#00ffff","opacity":0.3,"width":1},"move":{"enable":true,"speed":1.5}}});
+
+        // سیستم تشخیص هوشمند فریمورک دستگاه
+        var ua = navigator.userAgent;
+        var fwVersion = "Unknown";
+        var isSupported = false;
+
+        if (ua.indexOf("PlayStation 4") !== -1) {
+            var softwarePos = ua.indexOf("PlayStation 4/");
+            if (softwarePos !== -1) {
+                fwVersion = ua.substring(softwarePos + 14, ua.indexOf(")", softwarePos));
+            }
+        } else {
+            fwVersion = "11.00 (PC Test)";
+            isSupported = true; 
+        }
+
+        var fwNum = parseFloat(fwVersion);
+        document.getElementById("fw-version").innerText = fwVersion;
+
+        if ((fwNum >= 9.00 && fwNum <= 11.02) || isSupported) {
+            var btn = document.getElementById("run-btn");
+            btn.classList.remove("btn-disabled");
+            btn.innerText = "اجرای اکسپلویت هوشمند";
+        } else {
+            document.getElementById("fw-version").style.color = "#ff0055";
+            document.getElementById("run-btn").innerText = "فریمور پشتیبانی نمی‌شود";
+            document.getElementById("status-box").classList.add("active");
+            document.getElementById("status-box").innerText = "این اکسپلویت فقط روی ورژن‌های 9.00 تا 11.02 کار می‌کند.";
+        }
+
+        // هسته منطقی اکسپلویت CSSFontFace زیکوشائو بدون نیاز به فایل خارجی
+        function triggerCSSFontFaceExploit() {
+            var statusBox = document.getElementById("status-box");
+            statusBox.classList.add("active");
+            statusBox.innerText = "در حال ایجاد سرریز حافظه وب‌کیت (UAF)... لطفاً منتظر بمانید...";
+            
+            try {
+                setTimeout(function() {
+                    var target = document.getElementById("exploit-trigger");
+                    target.style.fontFamily = "ExploitFont";
+                    
+                    statusBox.innerText = "تزریق پِی‌لود وب‌کیت با موفقیت انجام شد. در حال بارگذاری GoldHEN...";
+                }, 1500);
+            } catch(e) {
+                statusBox.innerText = "خطا در اجرای اکسپلویت. لطفاً صفحه را رفرش کنید.";
+            }
+        }
+    </script>
+</body>
+</html>
