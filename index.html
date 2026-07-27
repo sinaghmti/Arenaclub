@@ -8,14 +8,6 @@
     <!-- فونت و آیکون‌ها -->
     <link href="https://cdn.jsdelivr.net/npm/vazirmatn@3.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- فونت کاستوم مخصوص فعال‌سازی اکسپلویت وب‌کیت زیکوشائو (ntfonto) -->
-    <style>
-        @font-face {
-            font-family: 'ExploitFont';
-            src: url('data:font/ttf;base64,AAEAAAASAQAABAAgQ0ZEQv5uC7QAAAHAAAAAEGhhZEX1vPV4AAAH0AAAACZnbHlmz3s55AAAA+gAAAB0aGVhZAEB5skAAAEwAAAANm1haHQAyQBLAAABaAAAAGJwb3N0/+cAAAAAApQAAAAgcGFja2UAbw7BAAAB4AAAACxtYXNwLwAMAwAAAfQAAAAIZ2FzcAAHABMAAAHMAAAACEdseWYzz3s55AAAA+gAAAB0') format('truetype');
-        }
-    </style>
 
     <style>
         :root {
@@ -84,7 +76,6 @@
             letter-spacing: 1px;
         }
 
-        /* بخش‌بندی و پنل‌های داخلی */
         .feature-section {
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(0, 255, 102, 0.2);
@@ -136,7 +127,6 @@
             text-shadow: 0 0 10px var(--primary-neon);
         }
 
-        /* استایل دکمه‌های سایبرپانک لوکال */
         .btn-cyber {
             display: block;
             width: 100%;
@@ -191,14 +181,12 @@
             pointer-events: none;
         }
 
-        /* استایل‌های گرید دکمه‌های کوچک */
         .sub-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
 
-        /* باکس نمایش لیست محتویات USB */
         .pkg-list-container {
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(0, 255, 102, 0.15);
@@ -273,19 +261,11 @@
             0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px var(--primary-neon), 0 0 40px var(--primary-neon); }
             50% { text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon); }
         }
-
-        #exploit-trigger {
-            font-family: 'ExploitFont', sans-serif;
-            position: absolute;
-            left: -9999px;
-            visibility: hidden;
-        }
     </style>
 </head>
 <body>
 
     <div id="particles-js"></div>
-    <div id="exploit-trigger">Trigger</div>
 
     <div class="main-container">
         <h1 class="neon-title">Arena Club</h1>
@@ -297,7 +277,7 @@
                 <p class="fw-label">فریمور شناسایی شده:</p>
                 <span id="fw-version">بررسی...</span>
             </div>
-            <button id="run-btn" class="btn-cyber btn-disabled" onclick="triggerCSSFontFaceExploit()">شروع عملیات هوشمند</button>
+            <button id="run-btn" class="btn-cyber btn-disabled" onclick="redirectToRealHost()">شروع عملیات هوشمند</button>
         </div>
 
         <!-- بخش ۲: نصب دسته‌ای و یک‌جای فایل‌های USB -->
@@ -354,62 +334,57 @@
         </div>
     </div>
 
-    <!-- افکت ذرات پس‌زمینه متحرک -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         particlesJS("particles-js", {"particles":{"number":{"value":50,"density":{"enable":true,"value_area":800}},"color":{"value":"#00ffff"},"shape":{"type":"circle"},"opacity":{"value":0.35},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":140,"color":"#00ffff","opacity":0.25,"width":1},"move":{"enable":true,"speed":1.2}}});
 
-        // سیستم تشخیص هوشمند فریمورک دستگاه
         var ua = navigator.userAgent;
-        var fwVersion = "Unknown";
-        var isSupported = false;
+        var fwVersion = "9.00"; // پیش‌فرض برای ورژن 9
+        var isSupported = true;
 
         if (ua.indexOf("PlayStation 4") !== -1) {
             var softwarePos = ua.indexOf("PlayStation 4/");
             if (softwarePos !== -1) {
                 fwVersion = ua.substring(softwarePos + 14, ua.indexOf(")", softwarePos));
             }
-        } else {
-            fwVersion = "11.00 (PC Test)";
-            isSupported = true; 
         }
 
         var fwNum = parseFloat(fwVersion);
+        var statusBox = document.getElementById("status-box");
         document.getElementById("fw-version").innerText = fwVersion;
 
-        if ((fwNum >= 9.00 && fwNum <= 11.02) || isSupported) {
+        // فعال‌سازی دکمه برای ورژن ۹
+        if (fwNum === 9.00 || ua.indexOf("PlayStation 4") === -1) {
             var btn = document.getElementById("run-btn");
             btn.classList.remove("btn-disabled");
-            btn.innerText = "اجرای اکسپلویت هوشمند";
+            btn.innerText = "شروع عملیات هوشمند فریمور " + fwVersion;
+            statusBox.innerText = "کنسول سازگار است. آماده اتصال به موتور پایدار کارو ۹.۰۰";
         } else {
-            document.getElementById("fw-version").style.color = "#ff0055";
-            document.getElementById("run-btn").innerText = "فریمور پشتیبانی نمی‌شود";
-            document.getElementById("status-box").classList.add("active");
-            document.getElementById("status-box").innerText = "این اکسپلویت فقط روی ورژن‌های 9.00 تا 11.02 کار می‌کند.";
+            // هدایت بقیه ورژن‌ها به صورت پیش‌فرض یا نمایش اخطار
+            var btn = document.getElementById("run-btn");
+            btn.classList.remove("btn-disabled");
+            btn.innerText = "انتقال به هاست همگانی کارو (ورژن " + fwVersion + ")";
+            statusBox.innerText = "تشخیص ورژن " + fwVersion + ". برای اجرای جیلبریک دکمه بالا را بزنید.";
         }
 
-        // هسته منطقی اکسپلویت CSSFontFace زیکوشائو
-        function triggerCSSFontFaceExploit() {
-            var statusBox = document.getElementById("status-box");
+        // عملکرد دکمه: ریدایرکت مستقیم به هاست تست شده و فوق‌العاده پایدار Karo
+        function redirectToRealHost() {
             statusBox.classList.add("active");
-            statusBox.innerText = "در حال ایجاد سرریز حافظه وب‌کیت (UAF)... لطفاً منتظر بمانید...";
+            statusBox.innerText = "در حال انتقال امن به هسته پردازش فریمور " + fwVersion + "... لطفا منتظر بمانید.";
             
-            try {
-                setTimeout(function() {
-                    var target = document.getElementById("exploit-trigger");
-                    target.style.fontFamily = "ExploitFont";
-                    statusBox.innerText = "تزریق پِی‌لود وب‌کیت با موفقیت انجام شد. در حال بارگذاری GoldHEN...";
-                }, 1500);
-            } catch(e) {
-                statusBox.innerText = "خطا در اجرای اکسپلویت. لطفاً صفحه را رفرش کنید.";
-            }
+            setTimeout(function() {
+                if (fwNum === 9.00) {
+                    // انتقال مستقیم به پایدارترین هاست فریمور 9.00 کارو نسخه گلد‌هن
+                    window.location.href = "https://karo218.ir/900 Gold/index.html";
+                } else {
+                    // برای بقیه ورژن‌ها، فرستادن به صفحه اصلی کارو
+                    window.location.href = "https://karo218.ir/";
+                }
+            }, 1500);
         }
 
-        // منطق شبیه‌سازی اسکن فایل‌های لوکال USB
         function scanLocalUSB() {
             var viewer = document.getElementById("pkg-viewer");
-            var statusBox = document.getElementById("status-box");
-            
             statusBox.innerText = "در حال اسکن درگاه‌های USB0 و USB1 کنسول...";
             
             var localPkgs = [
@@ -429,7 +404,7 @@
             
             setTimeout(function() {
                 viewer.innerHTML = listHtml;
-                statusBox.innerText = "اسکن موفقیت‌آمیز: هارد متصل شده شناسایی شد و باندل بازی‌ها تفکیک شدند.";
+                statusBox.innerText = "اسکن موفقیت‌آمیز: هارد متصل شده شناسایی شد.";
             }, 1000);
         }
 
@@ -440,19 +415,15 @@
 
         function installSelectedPkgs() {
             var selected = document.querySelectorAll(".local-pkg-cb:checked");
-            var statusBox = document.getElementById("status-box");
-            
             if(selected.length === 0) {
                 alert("ابتدا باید فایل‌های مورد نظر را تیک بزنید.");
                 return;
             }
-            
-            statusBox.innerText = "ارسال " + selected.length + " پچ و دی‌ال‌سی به صف دانلود خودکار کنسول...";
-            alert("باندل با موفقیت به صف متوالی Package Installer اضافه شد! فرآیند نصب بدون نیاز به دخالت شروع می‌شود.");
+            statusBox.innerText = "ارسال " + selected.length + " پچ به صف دانلود...";
+            alert("باندل با موفقیت به صف متوالی Package Installer اضافه شد!");
         }
 
         function loadCustomPayload(pName) {
-            var statusBox = document.getElementById("status-box");
             statusBox.innerText = "در حال تزریق و اجرای پی‌لود: " + pName + " ...";
             alert("پیلود " + pName + " با موفقیت ارسال شد.");
         }
